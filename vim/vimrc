@@ -1,0 +1,67 @@
+"====================================================================================================
+" vimrc                           					              by JKLEE
+"                                                                                     2023-06
+"====================================================================================================
+
+
+"====================================================================================================
+" 기본 설정
+set nocompatible                                        " Use Vim defaults (much better!)
+syntax on                                               " 적절히 Syntax에 따라 하일라이팅 해주기
+set all&				                " 모든 옵션을 원래대로 복원
+set autowrite				                " :next 나 :make 같은 명령를 입력하면 자동으로 저장
+set splitbelow                                          " 새로운 창 아래 생성
+set nobackup				                " 백업 파일을 만들지 않는다.
+set noswapfile				                " swap file 안만들기
+set cursorline                                          " 현재 커서 위치를 라인으로 표시
+set ruler				                " 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
+set title				                " 타이틀바에 현재 편집중인 파일을 표시
+set ffs=unix,dos,mac			                " unix dos mac 줄 변경자 모두 다 읽을 수 있도록 합니다.
+set backspace=indent,eol,start		                " backspace로 라인끝과 처음 자동들여쓰기한 부분을 지날수 있음
+set clipboard+=unnamed			                " use the clipboards of vim and win
+set clipboard+=unnamedplus  		                " better support system clipboard
+set go+=a				                " Visual selection automatically copied to the clipboard
+set sel=exclusive			                " 비주얼 모드에서의 동작 설정
+set cc=200    				                " 200 번째 글자 위치에 선 넣기
+set autochdir                 		                " vim pwd 를 현재 파일 위치로 자동 이동
+set scrolloff=5               		                " 스크롤 할때 위아래 줄 유지, 화살표 아래로 내리다 보면 아래에서 5줄 유지한 상황에서 스크롤 됨 "
+set autoread  				                " The file has been changed since reading it > 메시지가 자꾸 나와서
+set noexpandtab
+set splitright
+
+
+"======================================================================
+" color
+set t_co=256
+set background=dark
+let g:rehash256 = 1
+colorscheme janah
+
+"======================================================================
+" Extern vimrc
+"======================================================================
+if has("win32")
+	"======================================================================
+	" For Window
+	" vimrc_win.vim
+	"======================================================================
+	source ~/vimfiles/vimrc_win.vim
+	map <Leader>x :e ~/vimfiles/vimrc<CR>
+elseif has("macunix")
+	"======================================================================
+	" For Mac
+	"======================================================================
+	source ~/.vim/vimrc_mac.vim
+	map <Leader>x :e ~/.vim/vimrc<CR>
+else
+	"======================================================================
+	" For Linux
+	"======================================================================
+	" JKLEE_HOME 은 bashrc 에서 설정
+	source $JKLEE_HOME/env/vim/vimrc_linux.vim
+	map <Leader>x :e $JKLEE_HOME/env/vim/vimrc_linux.vimrc<CR>
+endif
+
+"======================================================================
+" End of File
+"======================================================================

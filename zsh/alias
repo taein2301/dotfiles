@@ -1,0 +1,11 @@
+alias cdsrc='cd /Users/jklee/Dropbox/Source/jklee'
+alias cdenv='cd $ENV_PATH'
+alias cdko='cd /Users/jklee/Dropbox/Source/jklee/jiam_korbit'
+alias vimrc='vim ~/.vimrc'
+alias zshrc='source ~/.zshrc'
+
+alias hi=history
+
+# for mac 
+alias python=python3
+alias pip=pip3
