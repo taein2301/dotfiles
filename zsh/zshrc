@@ -8,7 +8,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="pmcgee"
+#ZSH_THEME="pmcgee"
+ZSH_THEME="clean"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -91,18 +92,19 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
 export ENV_PATH="$HOME/.dotfiles"
 export ZSH_ENV_PATH="$HOME/.dotfiles/zsh"
 export VIM_ENV_PATH="$HOME/.dotfiles/vim"
 
-source $ZSH_ENV_PATH/alias 
+source $ZSH_ENV_PATH/alias
+
+# --- chpwd pyvenv ---
+python_venv() {
+  MYVENV=./.venv
+  # when you cd into a folder that contains $MYVENV
+  [[ -d $MYVENV ]] && source $MYVENV/bin/activate > /dev/null 2>&1
+  # when you cd into a folder that doesn't
+  [[ ! -d $MYVENV ]] && deactivate > /dev/null 2>&1
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd python_venv

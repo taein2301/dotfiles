@@ -28,40 +28,119 @@ set scrolloff=5               		                " 스크롤 할때 위아래 줄
 set autoread  				                " The file has been changed since reading it > 메시지가 자꾸 나와서
 set noexpandtab
 set splitright
+set belloff=all
 
 
-"======================================================================
-" color
+let mapleader = ","
+let maplocalleader = "\\"
+
+set listchars=tab:├─   " Tab 표시
+set listchars+=trail:⋄ " 뒤 공백을 ⋄ 로
+
+"====================================================================================================
+" COLOR
 set t_co=256
 set background=dark
 let g:rehash256 = 1
 colorscheme janah
 
-"======================================================================
+"====================================================================================================
+" 언어 관련  설정
+if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+	set encoding=utf-8
+endif
+
+scripte utf-8
+set fileencodings=utf-8,euc-kr,cp949
+
+"====================================================================================================
+" 들여쓰기 설정
+set tabstop=4					" 탭문자는 4컬럼 크기로 보여주기
+set shiftwidth=4				" 문단이나 라인을 쉬프트할 때 4컬럼씩 하기
+set cindent					" C 프로그래밍을 할때 자동으로 들여쓰기를 한다.
+set autoindent					" 자동 들여쓰기
+set smartindent					" 좀더 똑똑한 들여쓰기를 위한 옵션이다.
+
+"====================================================================================================
+" 찾기 설정
+set hlsearch					" / ? 명령 등으로 찾은 문자열을 하일라이트 해준다.
+set incsearch 					" 점진적으로 찾기
+set ignorecase                          	" 대소문자 무시
+set nows                                	" 검색시 파일 끝에서 처음으로 되돌리기 안함
+set scs 					" 똑똑한 대소문자 구별 기능 사용
+
+"====================================================================================================
+" Path / Tag
+set path=./,~/,/usr/include,../../include,../include " header 파일 찾을 디렉토리
+set tags=./tags,../../tags,tags,../tags
+
+
+"====================================================================================================
+" 다음 파일 열때 닫았던 위치에 열림
+if v:version > 800
+	autocmd BufReadPost *  if line("'\"") > 0 && line("'\"") <= line("$") |  exe "norm g`\"" | endif
+endif
+
+
+"====================================================================================================
+" 파일별 개별 설정
+"====================================================================================================
+
+" 자동 주석 금지
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"====================================================================================================
+" JSON Setting
+autocmd FileType json map <leader>j :%!python -m json.tool<CR>
+
+"====================================================================================================
+" Yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab autoindent
+
+"====================================================================================================
+" Python
+autocmd FileType python set sts=4
+autocmd FileType python map <leader>r <Esc>:w<CR>:!clear;python3 %<CR>
+
+autocmd FileType python let python_highlight_all = 1
+autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+autocmd FileType python map <buffer> <C-S-R> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <C-S-R> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+"====================================================================================================
+" sc/pc 파일 cpp 형식으로 읽기
+autocmd BufNewFile,BufRead *.sc set filetype=cpp
+autocmd BufNewFile,BufRead *.pc set filetype=cpp
+autocmd BufNewFile,BufRead *.gc set filetype=cpp
+
+"====================================================================================================
+" 자주 틀리는 단어 조정
+cab ㅈ w
+cab ㅂ q
+
+"====================================================================================================
 " Extern vimrc
-"======================================================================
+"====================================================================================================
 if has("win32")
 	"======================================================================
 	" For Window
 	" vimrc_win.vim
-	"======================================================================
 	source ~/vimfiles/vimrc_win.vim
 	map <Leader>x :e ~/vimfiles/vimrc<CR>
 elseif has("macunix")
 	"======================================================================
 	" For Mac
-	"======================================================================
 	source ~/.vim/vimrc_mac.vim
 	map <Leader>x :e ~/.vim/vimrc<CR>
 else
 	"======================================================================
 	" For Linux
-	"======================================================================
 	" JKLEE_HOME 은 bashrc 에서 설정
 	source $JKLEE_HOME/env/vim/vimrc_linux.vim
 	map <Leader>x :e $JKLEE_HOME/env/vim/vimrc_linux.vimrc<CR>
 endif
 
-"======================================================================
+"====================================================================================================
 " End of File
-"======================================================================
+"====================================================================================================

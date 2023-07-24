@@ -2,10 +2,12 @@ alias cdsrc='cd /Users/jklee/Dropbox/Source/jklee'
 alias cdenv='cd $ENV_PATH'
 alias cdko='cd /Users/jklee/Dropbox/Source/jklee/jiam_korbit'
 alias vimrc='vim ~/.vimrc'
-alias zshrc='source ~/.zshrc'
+alias zshrc='vim ~/.zshrc'
 
+alias cdblog='cd /Users/jklee/Dropbox/DEVLOG'
 alias hi=history
 
+alias mvim='open  -a macvim'
 # for mac 
 alias python=python3
 alias pip=pip3
