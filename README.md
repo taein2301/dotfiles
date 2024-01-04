@@ -44,4 +44,52 @@ $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 )
 ```
 
+# PowerShell
+
+## Profile 파일 확인. 
+
+```powershell
+$PROFILE | select *
+-- RESULT
+AllUsersAllHosts       : C:\Windows\System32\WindowsPowerShell\v1.0\profile.ps1
+AllUsersCurrentHost    : C:\Windows\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1
+CurrentUserAllHosts    : C:\Users\jklee\Documents\WindowsPowerShell\profile.ps1
+CurrentUserCurrentHost : C:\Users\jklee\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+Length                 : 75
+```
+
+## Profile 파일이 있는지확인
+```powershell
+Test-Path $profile.CurrentUserAllHosts
+-- RESULT 
+False <--- False 면 파일 없음.  > 신규로 생성 
+
+echo $profile.CurrentUserAllHosts
+C:\Users\jklee\Documents\WindowsPowerShell\profile.ps1
+-- 결과로 디렉토리 만들기 
+mkdir  C:\Users\taein\Documents\WindowsPowerShell
+```
+## Profile 수정 권한 
+관리자 권한으로 터미널 열고 
+
+``` powershell
+ExecutionPolicy
+
+-- RESULT 
+ `Restricted`  면 스크립트가 막힌 상태 
+
+-- 아래의 명령어 쳐서 제한 풀기
+Set-ExecutionPolicy Unrestricted
+
+ExecutionPolicy
+Unrestricted           <-- 모든 스크립트 허용 상태
+```
+
+## Profile file link 걸기 ( github )
+```
+-- HOME 에서 실행 
+git pull https://github.com/taein2301/dotfiles.git .config
+
+New-item -itemType SymbolicLink -path $profile.CurrentUserAllHosts -target "C:\Users\taein\.config\powershell\profile.ps1"
+```
 
