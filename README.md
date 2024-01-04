@@ -93,3 +93,29 @@ git pull https://github.com/taein2301/dotfiles.git .config
 New-item -itemType SymbolicLink -path $profile.CurrentUserAllHosts -target "C:\Users\taein\.config\powershell\profile.ps1"
 ```
 
+# windows nvim 
+## config 위치 확인 
+vim cmd mode 에서 아래 명령으로 config 위치 확인 
+ :echo stdpath('config') 
+없으면 만들어라.
+
+## Profile file link 걸기 ( github )
+```
+-- nvim config 
+New-item -itemType SymbolicLink -path "C:\Users\taein\AppData\Local\nvim\init.vim" -target "C:\Users\taein\.config\nvim/init.vim"
+```
+
+mkdir  ~/AppData/Local/nvim
+
+## plugin 설치 ( 관리자 권한 )
+- 순서대로 명령어 실행 
+```
+mkdir ~\AppData\Local\nvim\autoload
+$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    "~\AppData\Local\nvim\autoload\plug.vim"
+  )
+)
+```
