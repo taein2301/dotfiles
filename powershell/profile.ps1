@@ -7,13 +7,10 @@ Set-Alias vim nvim
 Set-Alias vi vim 
 
 #new-item alias:vim -value gvim
-function cdgo   { set-location C:\Dropbox\Source\go-Project }
-function cdenv  { set-location C:\Dropbox\ENV }
-function cdtool { set-location C:\Dropbox\TOOL }
 
-function cdsrc { set-location C:\Users\taein\Source }
-function cdmemo { set-location C:\Users\taein\MEMO }
-function cdenv  { set-location C:\Users\taein\.config }
-function psrc { vim C:\Users\taein\.config\powershell\profile.ps1 }
-function vimrc { vim C:\Users\taein\.config\nvim/init.vim }
+function cdsrc { set-location $HOME\Source }
+function cdmemo { set-location $HOME\MEMO }
+function cdenv  { set-location $HOME\.config }
+function psrc { vim  $HOME\.config\powershell\profile.ps1 }
+function vimrc { vim $HOME\.config\nvim/init.vim }
 Clear-Host
