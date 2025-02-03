@@ -11,3 +11,13 @@ alias mvim='open  -a macvim'
 # for mac 
 alias python=python3
 alias pip=pip3
+
+
+alias agrep='find . -type f -name * |grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
+alias cgrep='find . -type f -name "*.[ch]"|grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
+alias cpgrep='find . -type f -regex ".*\.[ch]\(pp\)?$"|grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
+alias pgrep='find . -type f -name "*.py"|grep -v .svn |xargs grep -n --color=auto $1'
+
+alias diff='diff  --recursive --ignore-blank-lines --ignore-all-space --ignore-space-change'
+alias valgrind='valgrind --leak-resolution=high --leak-check=yes -v'
+alias findcore='find ~/ -name "core*"'
