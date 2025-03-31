@@ -1,0 +1,22 @@
+# =====================================================================================
+#           Filename    : .bashrc_msys2
+#           Description : Windows msys2 bash shell 설정 파일
+#			Last Modification Day: 2020/04/28 JKLEE
+# =====================================================================================
+
+export MSYS=winsymlinks:nativestrict
+
+export PATH=/c/Users/jklee/bin:/usr/local/bin:/usr/bin:/bin:/opt/bin:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program\ Files/Git/cmd:
+
+#=====================================
+# Alias Setting
+#=====================================
+alias down='cd ~/Downloads'
+alias cddown='cd ~/Downloads'
+alias src='cd  ~/Source'
+alias cdenv='cd  ~/Dropbox/ENV'
+alias env='cd  ~/Dropbox/ENV'
+
+alias 105_sunje='ssh sunje@192.168.10.105'
+alias 124_nocs05='ssh nocs05@192.168.10.124'
+

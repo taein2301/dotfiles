@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/Users/jklee/Dropbox/blog_dev/content/post'
+let g:netrw_dirhist_0='/Users'
+let g:netrw_dirhist_9='/Users/jklee'
+let g:netrw_dirhist_8='/Users/jklee/Dropbox/ENV/vim'
+let g:netrw_dirhist_7='/Users/jklee/Dropbox/ENV'
+let g:netrw_dirhist_6='/Users/jklee/Dropbox'
+let g:netrw_dirhist_5='/Users/jklee/Dropbox/Source'
+let g:netrw_dirhist_4='/Users/jklee/Dropbox/Source/jklee'
+let g:netrw_dirhist_3='/Users/jklee/Dropbox/Source/jklee/coinBot'
+let g:netrw_dirhist_2='/Users/jklee/Dropbox/ENV/vim'

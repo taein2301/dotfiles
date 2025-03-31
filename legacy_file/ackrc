@@ -1,0 +1,64 @@
+# General Ack Settings
+#
+# References
+# - https://github.com/claytron/dotfiles/blob/master/.ackrc
+# - https://gist.github.com/kevinold/4749656
+#
+# Useful options
+# --noenv : ignore this file
+# -l : show only file names
+# -f : don't search inside of file (works like print -l in zsh)
+# -o : show only matching part
+# -Q, --literal : no regex
+# -h : no filename
+#
+# Usages
+# * find files with more than a word
+#   * ack 'first' $(ack -l 'second')
+####################################################################
+
+# Only search with case sensitivity if there is mixed case
+# Can turn off this with --no-smart-case
+--smart-case
+
+# Follow symlinks
+--follow
+
+# Always show line numbers
+# http://superuser.com/questions/839010/show-line-number-when-search-a-single-file
+# <-> --no-filename
+--with-filename
+
+# Always color, even if piping to a another program
+--color
+
+# Use "less −r" as my pager
+#--pager
+#less -r
+
+# Ignore dirs
+--ignore-dir=.idea/
+--ignore-dir=node_modules/
+--ignore-dir=bower_components/
+--ignore-dir=target
+--ignore-dir=dist
+
+# Ignore files
+--ignore-file=match:/.*min.*(js|css)$/
+--ignore-file=match:/.*sdk.*(js)$/
+--ignore-file=match:/.*\.iml$/
+--ignore-file=match:tags
+
+# Make sure ack knows how to search common filetypes
+--type-add=css=scss
+--type-set=coffeescript=.coffee
+--type-set=coffee=.coffee
+--type-set=plaintext=.md,.mdown,.markdown,.mkdn,.textile,.rst,.txt
+--type-set=csv=.txt,.csv,.tsv
+--type-set=jade=.jade
+--type-set=json=.json
+--type-set=less=.less
+--type-set=view:match:/.*(jsp|vm)$/
+--type-set=java=.java,.groovy
+--type-set=js=.js
+--type-set=vm=.vm

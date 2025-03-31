@@ -1,6 +1,6 @@
 "====================================================================================================
 " vimrc_max.vim				              by JKLEE
-"                                                     2023-06
+"                                         2025-04
 "====================================================================================================
 map <Leader>x :e ~/dotfiles/vimrc_mac.vim<CR>
 
@@ -8,9 +8,9 @@ map <Leader>x :e ~/dotfiles/vimrc_mac.vim<CR>
 "" PlugIn Setting Start
 "======================================================================
 call plug#begin('~/.vim/plugged_mac')
-Plug 'blueyed/vim-diminactive'     		" 비활성화 창 어둡게
-Plug 'scrooloose/nerdtree'              " File 네비게이터
-Plug 'majutsushi/tagbar'           		" 소스 네비게이터
+"Plug 'blueyed/vim-diminactive'     		" 비활성화 창 어둡게
+"Plug 'scrooloose/nerdtree'              " File 네비게이터
+"Plug 'majutsushi/tagbar'           		" 소스 네비게이터
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 

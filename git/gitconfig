@@ -1,0 +1,23 @@
+[user]
+	name = devops
+	email = devops@jadecross.com
+[core]
+	editor = vim
+	excludesfile = /Users/jklee/.gitignore
+	autocrlf = input
+[color]
+	ui = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+	vimdiff = difftool
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[credential]
+	helper = cache

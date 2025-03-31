@@ -99,8 +99,8 @@ map <Leader>X :e $USERPROFILE\dotfiles\vim\vimrc<CR>
 " Extern vimrc
 "====================================================================================================
 if has('mac') || has('macunix')
-	source ~/dotfiles/vimrc_mac.vim
-	map <Leader>x :e ~/dotfiles/vimrc_mac.vim<CR>
+	source $HOME/dotfiles/vim/vimrc_mac.vim
+	map <Leader>x :e $HOME/dotfiles/vim/vimrc_mac.vim<CR>
 elseif has('win32') || has('win64')
         source $USERPROFILE\dotfiles\vim\vimrc_windows.vim
 elseif has('unix') && !has('macunix')

@@ -1,0 +1,26 @@
+# =====================================================================================
+#           Filename    : .bashrc_win
+#           Description : Windows Git bash shell 설정 파일  
+#			Last Modification Day: 2016/05/02 JKLEE
+# =====================================================================================
+
+PATH=/usr/local/bin:.:~/bin:/usr/local/bin:/usr/local/ssl/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/ccs/bin:/usr/ucb:/etc:/usr/etc:/c/Users/이재국/bin:/c/global/ctags58:/c/global/bin:/usr/share/git:/c/Users/jklee/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/jklee/bin:/c/ProgramData/Oracle/Java/javapath:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0:/cmd:/mingw64/bin:/usr/bin:/c/Python/Python35/Scripts:/c/Python/Python35
+export PATH 
+
+export PS1="[\033[01;32m\]Git_bash\033[00m\]|\033[01;34m\]\w\033[00m\]] "
+#=====================================
+# Alias Setting
+#=====================================
+alias ls='ls --color=tty'
+alias findcore='find ~/ -name "core*"'
+
+alias vim='vim'  # windows 는 ~/.jklee/env/vim/vimrc  파일을 참조 안하고 초기화시 vimrc 파일을 ~/.vim 위치에 복사 해서 사용한다. 
+alias bashrc='vim ~/.jklee/env/Bash/bashrc_win'
+alias run='source ~/.jklee/env/Bash/bashrc_win'
+
+alias cdsrc='cd /c/Users/jkleeDropbox/Source'
+alias cddown='cd /C/Users/jklee/Downloads' 
+alias down='cd /C/Users/jklee/Downloads' 
+alias cdrcsr='cd /C/JKLEE/project/rcsr' 
+alias rcsr='cd /C/JKLEE/project/rcsr' 
+alias isread='cd /C/JKLEE/project/isRead'

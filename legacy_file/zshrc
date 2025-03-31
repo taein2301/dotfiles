@@ -1,0 +1,103 @@
+ # =====================================================================================
+#           Filename    : .zshrc
+#           Description : ZSH shell 설정 파일
+#			Last Modification Day: 2021/05/31 JKLEE
+# =====================================================================================
+set -o vi
+
+HIST_STAMPS="yyyy-mm-dd"
+export LC_ALL="ko_KR.UTF-8"
+
+PATH=/usr/local/bin:.:~/bin:/usr/local/bin:/usr/local/ssl/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/ccs/bin:/usr/ucb:/etc:/usr/etc:
+PATH=$PATH:/usr/local/sbin:/Users/jklee/Dropbox/env/SSH:~/.jklee/env
+PATH=$PATH:/Users/jklee/TOOL:/Users/jklee/Dropbox/Source/TOOL:/Users/jklee/Dropbox/TOOL
+PATH=$PATH:/Applications/CMake.app/Contents/bin:/usr/local/opt/mysql-client/bin
+export PATH="$HOME/.jenv/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/DEV/flutter/bin:/usr/local/go/bin:/Users/jklee/go/bin:/Users/jklee/DEV/flutter/bin:/usr/local/bin
+
+#=====================================
+# Oh-my-zsh Setting
+#=====================================
+export ZSH="/Users/jklee/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
+#=====================================
+# Python env Setting 2019/04/22
+#=====================================
+alias python='/usr/local/bin/python3'
+alias pip='/usr/local/bin/pip3'
+## pyenv 가 설치할 python 위치
+export PYENV_ROOT=/Users/jklee/DEV/pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+#=====================================
+# Zsh Plugin
+#=====================================
+. /Users/jklee/Dropbox/ENV/Bash/z.sh
+
+## direnv : 디렉토리에 들어가면 자동으로 ENV 환경 변수를 설정 / 나오면 해제
+#eval "$(direnv hook zsh)"
+
+## kubectl 파일이 있으면 kubectl 명령 자동완성
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+
+alias k=kubectl
+complete -F __start_kubectl k
+
+#=====================================
+# Color man pages:
+#=====================================
+export LESS_TERMCAP_mb=$'\E[01;31m' # begin blinking
+export LESS_TERMCAP_md=$'\E[01;31m' # begin bold
+export LESS_TERMCAP_me=$'\E[0m' # end mode
+export LESS_TERMCAP_se=$'\E[0m' # end standout-mode
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m' # end underline
+export LESS_TERMCAP_us=$'\E[01;32m' # begin underline
+
+
+
+#=====================================
+# Alias Setting
+#=====================================
+alias zshrc='vim ~/.zshrc'
+alias run='. ~/.zshrc'
+alias vimrc='vim ~/.vim/vimrc'
+alias findcore='find ~/ -name "core*"'
+alias ff='find ./ -name '
+alias mm.='make clean; make'
+alias ls='lsd'
+alias dir='ls'
+alias cat='ccat'
+
+alias ctags="`brew --prefix`/bin/ctags"
+alias cls=clear
+alias h=history
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias agrep='find . -type f -name * |grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
+alias cgrep='find . -type f -name "*.[ch]"|grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
+alias cpgrep='find . -type f -regex ".*\.[ch]\(pp\)?$"|grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
+alias pgrep='find . -type f -name "*.py"|grep -v .svn|xargs grep -n --color=auto $1'
+alias diff='diff  --recursive --ignore-blank-lines --ignore-all-space --ignore-space-change'
+alias valgrind='valgrind --leak-resolution=high --leak-check=yes -v'
+
+alias cddown='cd ~/Downloads'
+alias cdsrc='cd  ~/Source'
+alias cdenv='cd  /Users/jklee/Dropbox/ENV'
+alias cdsrc='cd /Users/jklee/Dropbox/Source'
+alias cdinbox='cd /Users/jklee/Dropbox/INBOX'
+alias cdtool='cd /Users/jklee/Dropbox/TOOL'
+alias cdstock='cd /Users/jklee/Dropbox/Source/jklee/stock_py'
+alias cddrop='cd /Users/jklee/Dropbox'
+alias cdblog='cd /Users/jklee/Dropbox/devLog'
+alias cdcoin='cd /Users/jklee/Dropbox/Source/jklee/coinBot'
+alias cdnote='cd /Users/jklee/Dropbox/MEMO'
+alias cdmemo='cd /Users/jklee/Dropbox/MEMO'
+alias cdj='cd /Users/jklee/Dropbox/Source/jklee/jiam'
+source /usr/local/opt/autoenv/activate.sh

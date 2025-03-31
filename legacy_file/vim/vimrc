@@ -1,0 +1,330 @@
+"==============================================================
+" vimrc							              by JKLEE
+"                                             2019-07-29
+"======================================================================
+
+
+"======================================================================
+" 기본 설정
+set nocompatible        " Use Vim defaults (much better!)
+syntax on                               " 적절히 Syntax에 따라 하일라이팅 해주기
+set all&								" 모든 옵션을 원래대로 복원
+set autowrite					 		" :next 나 :make 같은 명령를 입력하면 자동으로 저장
+set splitbelow                          " 새로운 창 아래 생성
+set splitright
+set nobackup							" 백업 파일을 만들지 않는다.
+set noswapfile							" swap file 안만들기
+set cursorline                          " 현재 커서 위치를 라인으로 표시
+set ruler								" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
+set noexpandtab
+set title								" 타이틀바에 현재 편집중인 파일을 표시
+set ffs=unix,dos,mac					" unix dos mac 줄 변경자 모두 다 읽을 수 있도록 합니다.
+set backspace=indent,eol,start			" backspace로 라인끝과 처음 자동들여쓰기한 부분을 지날수 있음
+set clipboard+=unnamed					" use the clipboards of vim and win
+set clipboard+=unnamedplus  			" better support system clipboard
+set go+=a								" Visual selection automatically copied to the clipboard
+set sel=exclusive						" 비주얼 모드에서의 동작 설정
+set cc=200    				  			" 200 번째 글자 위치에 선 넣기
+set autochdir                 			" vim pwd 를 현재 파일 위치로 자동 이동
+set scrolloff=5               			" 스크롤 할때 위아래 줄 유지, 화살표 아래로 내리다 보면 아래에서 5줄 유지한 상황에서 스크롤 됨 "
+set autoread  							" The file has been changed since reading it > 메시지가 자꾸 나와서
+
+
+if v:version > 800
+	set belloff=all
+endif
+
+set mouse=a
+
+let mapleader = ","
+let maplocalleader = "\\"
+
+set listchars=tab:├─   " Tab 표시
+set listchars+=trail:⋄ " 뒤 공백을 ⋄ 로
+
+" 파일 탐색기 설정
+let g:explVertical=1
+let g:explSplitRight=1
+let g:explStartRight=1
+let g:explWinSize=20
+"======================================================================
+
+"======================================================================
+" 언어 관련  설정
+if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+	set encoding=utf-8
+endif
+
+scripte utf-8
+set fileencodings=utf-8,euc-kr,cp949
+"======================================================================
+
+"======================================================================
+" COLOR
+set t_Co=256
+set background=dark
+let g:rehash256 = 1
+colorscheme janah
+
+"======================================================================
+" 들여쓰기 설정
+set tabstop=4							" 탭문자는 4컬럼 크기로 보여주기
+set shiftwidth=4						" 문단이나 라인을 쉬프트할 때 4컬럼씩 하기
+set cindent								" C 프로그래밍을 할때 자동으로 들여쓰기를 한다.
+
+set autoindent							" 자동 들여쓰기
+set smartindent							" 좀더 똑똑한 들여쓰기를 위한 옵션이다.
+"======================================================================
+
+"======================================================================
+" 찾기 설정
+set hlsearch							" / ? 명령 등으로 찾은 문자열을 하일라이트 해준다.
+set incsearch 							" 점진적으로 찾기
+set ignorecase                          " 대소문자 무시
+set nows                                " 검색시 파일 끝에서 처음으로 되돌리기 안함
+set scs 								" 똑똑한 대소문자 구별 기능 사용
+"======================================================================
+
+"======================================================================
+" Path / Tag
+set path=./,~/,/usr/include,../../include,../include " header 파일 찾을 디렉토리
+set tags=./tags,../../tags,tags,../tags,../../libsrc/tags,/Users/jklee/Dropbox/Source/nocs_jklee/tags,/Users/jklee/Dropbox/Source/nocs_jklee/src/tags
+"======================================================================
+
+"======================================================================
+" 다음 파일 열때 닫았던 위치에 열림
+if v:version > 800
+	autocmd BufReadPost *  if line("'\"") > 0 && line("'\"") <= line("$") |  exe "norm g`\"" | endif
+endif
+"======================================================================
+
+"======================================================================
+" 파일별 개별 설정
+"======================================================================
+
+" 자동 주석 금지
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"======================================================================
+" JSON Setting
+"=====================================================================
+autocmd FileType json map <leader>j :%!python -m json.tool<CR>
+
+"======================================================================
+" Yaml
+"=====================================================================
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab autoindent
+
+"======================================================================
+" Python
+"=====================================================================
+autocmd FileType python set sts=4
+autocmd FileType python map <leader>r <Esc>:w<CR>:!clear;python3 %<CR>
+
+"if has("win32")
+"	autocmd BufNewFile *.py 0r ~/.vim/syntax/skeleton_python | let IndentStyle="python"
+"elseif has("macunix")
+"	autocmd BufNewFile *.py 0r ~/.vim/syntax/skeleton_python | let IndentStyle="python"
+"endif
+autocmd FileType python let python_highlight_all = 1
+autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+"======================================================================
+" Go
+"=====================================================================
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
+"======================================================================
+" sc/pc 파일 cpp 형식으로 읽기
+"=====================================================================
+autocmd BufNewFile,BufRead *.sc set filetype=cpp
+autocmd BufNewFile,BufRead *.pc set filetype=cpp
+autocmd BufNewFile,BufRead *.gc set filetype=cpp
+
+
+"======================================================================
+" 자주 틀리는 단어 조정
+"======================================================================
+cab ㅈ w
+cab ㅂ q
+
+"======================================================================
+" 단축키 설정 Part1 : F1 ~ F12 : 정리중
+"======================================================================
+
+map <Leader>bp :!/Users/jklee/Dropbox/blog_dev/blog_deploy.sh <CR>
+"======================================================================
+" 단축키 설정 Part2 : Map 을 이용한 단축키
+"======================================================================
+function! TogglePaste()
+	let &paste = 1 - &paste
+endf
+
+function! ToggleNu()
+	let &nu = 1 - &nu
+endf
+
+function! TogglePaste()
+	let &paste = 1 - &paste
+endf
+
+function! ToggleCB()
+	let line = getline('.')
+
+	if(match(line, "\\[ \\]") != -1)
+		let line = substitute(line, "\\[ \\]", "[X]", "")
+	elseif(match(line, "\\[X\\]") != -1)
+		let line = substitute(line, "\\[X\\]", "[ ]", "")
+	else
+		let line = substitute(line, "", "* [ ] ", "")
+	endif
+
+	call setline('.', line)
+endf
+
+
+"======================================================================
+" vim terminal 으로 명령어 보내면서 terminal 실행
+function! Termrun(prefix)
+	" find first buffer that is from :term
+	highlight Terminal ctermbg=None ctermfg=None guibg=#262626 guifg=#dadada
+	let l:bufnum = bufnr("!/bin/zsh")
+	" let l:bufnum = bufnr("!/bin/bash")
+	"let l:cmd = a:prefix . expand("%:p") . "\<CR>"
+	let l:cmd = a:prefix ."\<CR>"
+	"   if l:bufnum < 0
+	"let l:bufnum = term_start("/bin/bash", {"term_finish": "close","term_rows":20 })
+	let l:bufnum = term_start("/bin/zsh", {"term_finish": "close","term_rows":20 })
+	"   endif
+	call term_sendkeys(l:bufnum,l:cmd)
+endfunction
+
+map <Leader>` :call Termrun("source ~/.zshrc")<CR>
+
+"======================================================================
+" 오늘 날짜로 DailyMemo 폴더에 파일 저장
+function! WriteDailyFileName()
+if has("win32")
+	let g:ddir='C:\Users\jklee\Dropbox\MAIN_NOTE\'
+else
+	let g:ddir='/Users/jklee/Dropbox/MAIN_NOTE/'
+endif
+	let fname = strftime("%Y-%m-%d")."."."md"
+	let path_and_file = g:ddir . fname
+	silent exe ":e " . path_and_file
+	echo path_and_file
+endfun
+
+
+
+map <Leader>ww :call WriteDailyFileName()<CR>
+
+map <silent> <leader>g :call ToggleCB()<cr>
+map <Leader>n :call ToggleNu()<CR>
+map <Leader>pt :call TogglePaste()<CR>
+
+" 날짜관련
+inoremap <Leader>a #  <ESC>"=strftime("%Y-%m-%d")<CR>PA<CR>
+nnoremap <Leader>a A#  <ESC>"=strftime("%Y-%m-%d")<CR>PA<CR>
+inoremap <Leader>s ## <ESC>"=strftime("%H:%M")<CR>PA<CR>
+nnoremap <Leader>s A## <ESC>"=strftime("%H:%M")<CR>PA<CR>
+nnoremap <Leader>d A~ <ESC>"=strftime("%H:%M")<CR>PA
+inoremap <Leader>d ~ <ESC>"=strftime("%H:%M")<CR>PA
+
+"======================================================================
+" BOOKMARK Setting
+"======================================================================
+map <Leader>1 :NERDTree<CR> :OpenBookmark Download<CR><CR>
+map <Leader>2 :NERDTree<CR> :OpenBookmark BLOG<CR><CR>
+map <Leader>3 :NERDTree<CR> :OpenBookmark stock_py<CR><CR>
+map <Leader>4 :NERDTree<CR> :OpenBookmark JK_Project<CR><CR>
+
+
+map <Leader>b :make clean ; make <CR>:copen<CR><CR>
+
+map <Leader>r :! ./run.sh<CR>
+
+" 영역이 지정된 상태에서 Tab 과 Shift-Tab 으로 들여쓰기/내어쓰기
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+cmap AL<CR> e %<.sc<CR>
+cmap OR<CR> e %<.pc<CR>
+
+autocmd BufRead,BufNewFile *.sc cmap A<CR> e %<.hpp<CR>
+autocmd BufRead,BufNewFile *.pc cmap A<CR> e %<.hpp<CR>
+
+" select All
+nnoremap <C-A> ggVG
+inoremap <C-A> <esc>ggVG
+vnoremap <C-A> <esc>ggVG
+
+" Tab navigation
+nnoremap <C-N>   :tabnew<CR>
+nnoremap <C-j>   :tabNext<CR>
+nnoremap <C-k>   :tabnext<CR>
+nnoremap <C-l>   :tabclose<CR>
+
+inoremap <C-N>   <ESC>:tabnew<CR>
+inoremap <C-j>   <ESC>:tabNext<CR>
+inoremap <C-k>   <ESC>:tabnext<CR>
+inoremap <C-l>   <ESC>:tabclose<CR>
+
+"======================================================================
+" Plugin 관련 단축키
+"======================================================================
+nnoremap <silent> <Leader>e :call NERDTreeToggleInCurDir()<cr>
+nnoremap <silent> <Leader>E :TagbarToggle<CR>
+
+"======================================================================
+" 단축키 설정 Part3 : 축약
+"======================================================================
+iab test.   // JKLEE_TEST <c-r>=strftime("%Y/%m/%d %H:%M")<CR> :
+iab jklee.  // <c-r>=strftime("%Y/%m/%d" )<CR> JKLEE :
+iab todo.   // JKLEE_TODO <c-r>=strftime("%Y/%m/%d %H:%M")<CR> :
+iab debug.  /* JKLEE_DEBUG <c-r>=strftime("%Y/%m/%d %H:%M")<CR> */  <CR>
+iab jend.   /* JKLEE_END */
+iab pppp    fprintf(stderr,"JKLEE_DEBUG FILE[%s] FUNC[%s] LINE[%d] \n",__FILE__,__func__,__LINE__);
+iab ppp     fprintf(stderr,"
+iab re.     RESULT :
+iab tag.    Tag :
+
+iab del.    #if 0 // JKLEE_DELETE <c-r>=strftime("%Y/%m/%d %H:%M")<CR>
+iab end.    #endif
+
+iab jklog. g_pclsFileLog->Write(LOG_CRITICAL, "JKLEE_LOG [%s][%s]",__FILE__,__LINE__);
+iab logc.  g_pclsFileLog->Write(LOG_CRITICAL, "
+iab logd.  g_pclsFileLog->Write(LOG_INFO, "
+
+iab --.    ----------------------------------------------------------------------------------------------------
+
+
+
+"======================================================================
+" Extern vimrc
+"======================================================================
+if has("win32")
+	"======================================================================
+	" For Window
+	" vimrc_win.vim
+	"======================================================================
+	source ~/vimfiles/vimrc_win.vim
+	map <Leader>x :e ~/vimfiles/vimrc<CR>
+elseif has("macunix")
+	"======================================================================
+	" For Mac
+	"======================================================================
+	source ~/.vim/vimrc_mac.vim
+	map <Leader>x :e ~/.vim/vimrc<CR>
+else
+	"======================================================================
+	" For Linux
+	"======================================================================
+	" JKLEE_HOME 은 bashrc 에서 설정
+	source $JKLEE_HOME/env/vim/vimrc_linux.vim
+	map <Leader>x :e $JKLEE_HOME/env/vim/vimrc_linux.vimrc<CR>
+endif
+
+"======================================================================
+" End of File
+"======================================================================
