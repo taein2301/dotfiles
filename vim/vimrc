@@ -41,7 +41,7 @@ set fileencodings=utf-8,euc-kr,cp949
 " 들여쓰기 설정
 set tabstop=4					" 탭문자는 4컬럼 크기로 보여주기
 set shiftwidth=4				" 문단이나 라인을 쉬프트할 때 4컬럼씩 하기
-set cindent					" C 프로그래밍을 할때 자동으로 들여쓰기를 한다.
+set cindent						" C 프로그래밍을 할때 자동으로 들여쓰기를 한다.
 set autoindent					" 자동 들여쓰기
 set smartindent					" 좀더 똑똑한 들여쓰기를 위한 옵션이다.
 
@@ -49,9 +49,8 @@ set smartindent					" 좀더 똑똑한 들여쓰기를 위한 옵션이다.
 " 찾기 설정
 set hlsearch					" / ? 명령 등으로 찾은 문자열을 하일라이트 해준다.
 set incsearch 					" 점진적으로 찾기
-set ignorecase                          	" 대소문자 무시
-set nows                                	" 검색시 파일 끝에서 처음으로 되돌리기 안함
-set scs 					" 똑똑한 대소문자 구별 기능 사용
+set ignorecase                  " 대소문자 무시
+set nows                        " 검색시 파일 끝에서 처음으로 되돌리기 안함
 
 "====================================================================================================
 " Path / Tag
@@ -95,6 +94,7 @@ autocmd BufNewFile,BufRead *.gc set filetype=cpp
 cab ㅈ w
 cab ㅂ q
 
+map <Leader>X :e $USERPROFILE\dotfiles\vim\vimrc<CR>
 "====================================================================================================
 " Extern vimrc
 "====================================================================================================
