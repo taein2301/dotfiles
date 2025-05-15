@@ -1,12 +1,17 @@
 # =====================================================================================
 #           Filename    : .bashrc_comm
-#           Description : COMMON bash shell 설정 파일
-#			Last Modification Day: 2020/10/29 JKLEE
+#           Description : COMMON bash shell 설정 파일  
+#			Last Modification Day: 2016/01/26 JKLEE
 # =====================================================================================
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export TERM=xterm-color
 
+#LANG=ko_KR.EUC_KR
+#export LANG
+#export LC_ALL=ko_KR.eucKR
+#export LANG=ko_KR.eucKR
+export LANG=ko_KR.UTF-8
+export TERM=xterm-color
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -15,18 +20,6 @@ export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S : "
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export GREP_OPTIONS='--color=auto'
-
-#=====================================
-# JKLEE_HOME Setting
-#=====================================
-export JKLEE_HOME=${HOME}'/user/jklee'
-
-if      [ "$USER" = 'jklee' ]; then
-	export LANG=ko_KR.UTF-8
-else
-	export LANG=C
-fi
 
 #=====================================
 # Alias Setting
@@ -40,27 +33,28 @@ alias agrep='find . -type f -name "*" |grep -v tags |grep -v .svn|xargs grep -n 
 alias cgrep='find . -type f -name "*.[ch]"|grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
 alias cpgrep='find . -type f -regex ".*\.[ch]\(pp\)?$"|grep -v tags |grep -v .svn|xargs grep -n --color=auto $1'
 alias pgrep='find . -type f -name "*.py"|grep -v .svn|xargs grep -n --color=auto $1'
+alias diff='diff  --recursive --ignore-blank-lines --ignore-all-space --ignore-space-change'
+alias valgrind='valgrind --leak-resolution=high --leak-check=yes -v'
 
+alias bashrc_comm='vim ~/.jklee_env/bashrc_comm'
+alias vimrc='vim ~/.vim/vimrc'
 alias run='. ~/.bashrc'
 alias findcore='find ~/ -name "core*"'
 alias ff='find ./ -name '
 alias mm='make clean; make'
 
-alias cdjklee='cd $JKLEE_HOME'
-
 #=====================================
-# Terminal Vi Key Mapping
+# Terminal Vi Key Mapping 
 #=====================================
 set -o vi
 
 #=====================================
-# Color Setting
+# Color Setting  
 #=====================================
 case "$TERM" in
-xterm-color) color_prompt=yes;;
+    xterm-color) color_prompt=yes;;
 esac
 
-. $JKLEE_HOME/env/bash/z.sh
 #=====================================
 # Color man pages:
 #=====================================
@@ -73,26 +67,24 @@ export LESS_TERMCAP_ue=$'\E[0m' # end underline
 export LESS_TERMCAP_us=$'\E[01;32m' # begin underline
 
 #=====================================
-# 공지 사항
+# 공지 사항  
 #=====================================
 #cat ~/.noti
-
 export PLATFORM=`uname`
+
 if      [ "$PLATFORM" = 'Linux' ]; then
-	source $JKLEE_HOME/env/bash/bashrc_linux
-elif    [ "$PLATFORM" = 'Darwin' ]; then
-echo "Mac is zsh"
-elif    [ "$PLATFORM" = 'CYGWIN_NT-10.0' ]; then
-# Cygwin
-source /cygdrive/c/Users/jklee/Dropbox/ENV/Bash/bashrc_cygwin
-elif    [ "$PLATFORM" = 'MINGW64_NT-6.1' ]; then
-# Windows
-source ~/.jklee/env/Bash/bashrc_win_git
-echo "WINDOWS"
-elif    [ "$PLATFORM" = 'MSYS_NT-10.0-18363' ]; then
-source ~/.jklee/env/Bash/bashrc_win_msys
+	source ~/.jklee_env/bashrc_linux
 elif    [ "$PLATFORM" = 'SunOS' ]; then
-echo "SunOS Not Setting File"
-else
-source ~/.jklee/env/Bash/bashrc_win_git
+	echo "SunOS Not Setting File"
+elif    [ "$PLATFORM" = 'Darwin' ]; then
+	source ~/.jklee_env/bashrc_mac
+elif    [ "$PLATFORM" = 'CYGWIN_NT-10.0' ]; then               
+	echo "cygwin"
+	# Cygwin
+elif    [ "$PLATFORM" = 'MINGW64_NT-6.1' ]; then               
+	# Windows 
+	source ~/.jklee_env/bashrc_win
+	echo "WINDOWS"
+else 
+	source ~/.jklee_env/bashrc_win
 fi

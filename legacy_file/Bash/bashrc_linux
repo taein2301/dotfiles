@@ -3,12 +3,11 @@
 #           Description : Linux bash shell 설정 파일  
 #			Last Modification Day: 2016/01/26 JKLEE
 # =====================================================================================
-
 PATH=$PATH:/usr/local/bin:.:~/bin:/usr/local/bin:/usr/local/ssl/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/etc:/usr/etc
 export PATH 
 
+export PS1="[\[\e]0;\u: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]]"
 #export PS1="[\033[01;30m\u\033[00m@$MY_SYS_NAME|\w] "
-#PS1='[${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;34m\] \w \[\033[00m\]] '
 #export PS1="[JK:${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;34m\] \w \[\033[00m\]]"
 
 # For Git remote PUSH 
@@ -17,14 +16,24 @@ unset SSH_ASKPASS
 #=====================================
 # Alias Setting
 #=====================================
-alias vim='vim -u $JKLEE_HOME/env/vim/vimrc'
-alias vimrc='vim $JKLEE_HOME/env/vim/vimrc'
 alias ls='ls --color=tty'
 alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
-alias bashrc='vim $JKLEE_HOME/env/Bash/bashrc_linux'
+alias bashrc='vim ~/.jklee_env/bashrc_linux'
 alias time_sync='/usr/bin/rdate -s time.bora.net'
 
+alias down='cd ~/Downloads'
+alias cdsrc='cd  ~/Source'
 #=====================================
 # excute CMD  
 #=====================================
 ulimit -c unlimited
+
+#=====================================
+# APPLICATION  
+#=====================================
+alias cdndm='cd /NOCS/NOCS03/nocs/src/online/NDiameter'
+alias cddm='cd /NOCS/NOCS03/ndiameter/NDM'
+
+alias taildm='tail -f $NTELS_LOG/file_log/`date +%Y%m%d`/*NDiameter*'
+alias taildmr='tail -f $NTELS_LOG/file_log/`date +%Y%m%d`/*DM*'
+alias vimdm='vim $NTELS_LOG/file_log/`date +%Y%m%d`/*NDiameter*'

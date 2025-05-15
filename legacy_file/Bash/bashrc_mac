@@ -1,0 +1,61 @@
+# =====================================================================================
+#           Filename    : .bashrc_mac
+#           Description : MAC bash shell 설정 파일  
+#			Last Modification Day: 2018/03/29 JKLEE
+# =====================================================================================
+
+PATH=/usr/local/bin:.:~/bin:/usr/local/bin:/usr/local/ssl/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/ccs/bin:/usr/ucb:/etc:/usr/etc:
+PATH=$PATH:/usr/local/sbin:/Users/jklee/Dropbox/env/SSH:~/.jklee_env:~/.ssh:/Library/Frameworks/Python.framework/Versions/3.6/bin
+PATH=$PATH:/Users/jklee/Source:/Users/jklee/Source/isRead/.isRead_env:/Users/jklee/Source/isRead/.isRead_env/bin
+PATH=$PATH:/Users/jklee/TOOL:/Users/jklee/Dropbox/Source/TOOL
+PATH=$PATH:/Applications/CMake.app/Contents/bin
+export PATH=$PATH
+
+
+
+#export PS1="\[\033[01;33m\][\u\[\033[01;30m\]@\h:\[\033[00;36m\]$PWD]\[\033[00m\]$"
+export PS1="[\033[01;32m\]Mac\033[00m\]|\033[01;34m\]\w\033[00m\]] "
+
+#=====================================
+# Alias Setting
+#=====================================
+alias ls='ls -ltGF'
+alias which='/usr/bin/which'
+alias bashrc='vim ~/.jklee_env/bashrc_mac'
+
+
+alias isread='cd /Users/jklee/Source/isRead'
+alias cdblog='cd /Users/jklee/Dropbox/BLOG'
+alias blog='cd /Users/jklee/Dropbox/BLOG'
+alias rcsr='cd /Users/jklee/Dropbox/JOB/Project/2017_rcsr'
+alias cdrcsr='cd /Users/jklee/Dropbox/JOB/Project/2017_rcsr'
+alias down='cd ~/Downloads'
+alias cddown='cd ~/Downloads'
+alias cdsrc='cd  ~/Source'
+alias src='cd  ~/Source'
+alias cdasrc='cd  /Users/jklee/Dropbox/ARIEL_Source'
+alias asrc='cd  /Users/jklee/Dropbox/ARIEL_Source'
+alias cdwiki='cd /Users/jklee/Dropbox/wiki'
+alias wiki='cd /Users/jklee/Dropbox/wiki'
+alias cdenv='cd  ~/.jklee_env'
+alias cdsync='cd /Users/jklee/sync_file'
+alias cat='ccat'
+
+# alias cdelcom='cd /Users/jklee/Source/elcom_vs'
+# alias elcom='cd /Users/jklee/Source/elcom_vs'
+
+alias scef='cd /Users/jklee/Dropbox/ARIEL_Source/SCEF_OMP/T1.0.0/OMP/src'
+
+alias getpcap='scp root@219.250.188.124:*.pcap .'
+#=====================================
+# NOCS Application Env Setting  
+#=====================================
+alias cdndm='cd /Users/jklee/Source/nocs/src/online/NDiameter'      # 네이블 RCS IM 
+alias cddm='cd /Users/jklee/Source/ORNOCS/DM.R291'                  # 르완다 DM  
+export OCS_HOME=/Users/jklee/Source/nocs
+
+
+
+ulimit -c unlimited
+
+#PROMPT_COMMAND='date'

@@ -1,0 +1,38 @@
+# =====================================================================================
+#           Filename    : .bashrc_cygwin
+#           Description : Windows Cygwin bash shell 설정 파일  
+# =====================================================================================
+PATH=/usr/local/bin:.:~/bin:/usr/local/bin:/usr/local/ssl/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/ccs/bin:/usr/ucb:/etc:/usr/etc:
+PATH=$PATH:~/bin:~/data:~/Source:~/Source/BACKUP_TOOL
+
+export PATH 
+
+export PYTHONPATH=$PYTHONPATH:~/python_src:~/myProject
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S : "
+
+# For Git remote PUSH 
+unset SSH_ASKPASS
+
+#export PS1="[\033[01;30m\u\033[00m@$MY_SYS_NAME|\w] "
+
+#=====================================
+# Alias Setting
+#=====================================
+alias ls='ls --color=tty'
+alias ll='ls -ltr'
+alias sysconfig='vim ~/data/sysconfig'
+alias findcore='find ~/ -name "core*"'
+
+alias bashrc='vim /cygdrive/c/Users/jklee/Dropbox/ENV/Bash/bashrc_cygwin'
+alias run='source /cygdrive/c/Users/jklee/Dropbox/ENV/Bash/bashrc_cygwin'
+
+ulimit -c unlimited
+alias cdsrc='cd ~/Source'
+alias cdcpp='cd ~/Source/c_plus' 
+alias down='cd ~/Downloads'
+
+alias bkpkg='tar cvf - $PKG_HOME |  gzip  > ~/BACKUP/${MY_SYS_NAME}_`date +%m%d`.tar.gz'
+
+#=====================================
+# APPLICATION  
+#=====================================

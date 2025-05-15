@@ -1,0 +1,245 @@
+"==============================================================
+" VIMRC								  by JKLEE
+"                                             2017-01-11
+"==============================================================
+
+"======================================================================
+set nocompatible
+set wrap								" 자동 줄바꿈 안함
+set statusline=%h%F%m%r%=[%l:%c(%p%%)]  " 상태표시줄 포맷팅
+set magic								" 모든 정규식 문자를 사용할 수 있게 함
+set lz									" 매크로 실행중에 화면을 다시 그리지 않음
+set foldmethod=marker
+set clipboard+=unnamed					" use the clipboards of vim and win
+set go+=a								" Visual selection automatically copied to the clipboard
+set sel=inclusive						" 비주얼 모드에서의 동작 설정
+
+"======================================================================
+" 장비별 설정
+"======================================================================
+let os = substitute(system('uname'), "\n", "", "")
+if os == "Linux"
+	" Linux OS
+	let Grep_Path = '/bin/grep'
+	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.ex,*.o
+	let startPwd = substitute(system('pwd'), "\n", "", "")
+	nnoremap <Leader>x :e ~/.jklee/env/vim/vimrc<CR><CR>
+
+elseif has("gui_running")
+	"======================================================================
+	" Windows Gvim Setting
+	"======================================================================
+	set encoding=utf-8
+	set guifont=Consolas:h13:cANSI
+	set guifontwide=Dotumche:h12:cDEFAULT
+
+	" 마우스 우클릭 붙여넣기
+	set mousemodel=extend
+	map <RightMouse> <MiddleMouse>
+
+	"let Grep_Path = '/bin/grep'
+	"let Grep_Path = ' C:\Program Files\Git\usr\bin\grep.exe'
+	"let Grep_Path = ' C:\Program/ Files\Git\usr\bin\grep.exe'
+	cd C:\Users\jklee\Downloads
+	imap <C-S> <ESC>:w<CR>
+	"		imap <C-O> <ESC>:tabnew<CR>:browse e<CR>
+	map <C-S> :w<CR>
+	"		map <C-O> :tabnew<CR>:browse e<CR>
+
+	" For Full Screen
+	set lines=999 columns=999
+
+	" ===== g_vim 메뉴 간소
+	set guioptions-=m            " 메인 메뉴
+	set guioptions-=T
+	set guioptions-=l
+	set guioptions-=L           " Lift-hand scroll bar
+	set guioptions-=r       	" right-hand scroll bar
+	set guioptions-=R
+	set guioptions-=b
+	set guioptions+=c
+
+	nnoremap <C-Z> u<CR>
+	inoremap <C-Z> <ESC>u<CR>
+
+	nnoremap <C-S-V> p<CR>
+	inoremap <C-S-V> <ESC>p<CR>$A
+	" 2017/02/24 JKLEE : gvim 은 Ctrl+q 가 Virtual Block 설정인데 Ctrl+v 로 바꿀라고 하다가
+	" Ctal+v 를 붙여넣기로 쓰고 Ctrl+q 를 새로 익히기로 결정
+	"	nnoremap <C-v> <C-Q>
+	"	inoremap <C-v> <C-Q>
+
+	"set grepprg=grep\ -nH
+	set grepprg=grep\ -snH
+
+	"		set background=dark
+	"		colorscheme molokai
+	"		colorscheme office-light
+	"colorscheme office-dark
+	nnoremap <silent> <F5> :update<Bar>silent !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "file://%:p"<CR>
+
+	nnoremap <Leader>x :e ~/.jklee/env/vim/vimrc<CR><CR>
+
+	" 한글 깨지는것을 utf-8 로 다시 인코딩해서 읽기
+	map <Leader>e :e ++enc=utf-8 <CR>
+	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.ex
+	set fileencodings=utf-8
+
+endif
+"======================================================================
+"======================================================================
+
+map <Leader>CO :copen<CR>
+map <Leader>CN :cnext <CR>
+map <Leader>CC :cclose <CR>
+
+map <Leader>LO :lopen<CR>
+map <Leader>LN :lnext <CR>
+map <Leader>LC :lclose <CR>
+
+nnoremap <silent> <F5> :update<Bar>silent !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "file://%:p"<CR>
+
+"map <Leader>g :grep <cword> *.cpp *.hpp *.sc *.pc <CR><CR> :copen <CR>
+"map <Leader>g :grep <cword> * <CR><CR> :copen <CR>
+
+
+map <Leader>g :execute " grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR><CR>
+map <F4> :execute " grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR><CR>
+map <F2> :Calendar<CR>
+
+if os == "MSYS_NT-6.1"
+	autocmd FileType python map <Leader>t :!ctags.exe -a --python-kinds=-iv --exclude=build --exclude=dist *.py
+else
+	autocmd FileType python map <Leader>t :!ctags -a --python-kinds=-iv --exclude=build --exclude=dist *.py
+endif
+
+autocmd FileType python nnoremap <buffer> <Leader>i :exec '!clear; ipython' <cr>
+autocmd FileType python nnoremap <buffer> <Leader>R :exec '!python main.py' <cr>
+autocmd FileType python nnoremap <buffer> <Leader>r :exec '!python' shellescape(@%, 1)<cr>
+autocmd FileType python map <Leader>g :grep <cword> *.py <CR><CR> :copen <CR>
+"autocmd FileType python map <Leader>r :!python % <CR>
+
+" 커서를 다음/이전 “row”로
+"noremap j gj
+"noremap k gk
+
+"
+
+"Buffer navigation
+"nnoremap <C-S-N>   :enew<CR>
+"nnoremap <C-S-j>   :bprevious!<CR>
+"nnoremap <C-S-k>   :bnext!<CR>
+"nnoremap <C-S-l>   :bp <BAR> bd #<CR>
+
+"inoremap <C-S-N>   :enew<CR>
+"inoremap <C-S-j>   :bprevious!<CR>
+"inoremap <C-S-k>   :bnext!<CR>
+"inoremap <C-S-l>   :bp <BAR> bd #<CR>
+
+
+" 저장시에 무조건 UTF-8 로 변환
+autocmd BufWrite  * :set fileencodings=uft-8
+" 저장시에 무조건 unix 형식으로  unix : <LF> / dos : <CR><LF>
+autocmd BufWrite  * :set fileformat=unix
+
+" 파일 여러게 OPEN 시에 TAB 으로 열기
+" autocmd VimEnter * tab all
+
+" sh Script
+autocmd FileType sh map <F2> : !chmod +x %
+autocmd FileType sh map <F3> : !./%
+
+" C language
+autocmd BufRead,BufNewFile *.c set noexpandtab
+autocmd BufRead,BufNewFile *.h set noexpandtab
+autocmd BufRead,BufNewFile Makefile* set noexpandtab
+
+"Python
+autocmd FileType python nnoremap K :<C-u>execute "!python -m pydoc " . expand("<cword>")<CR><CR><CR>
+autocmd FileType python let python_highlight_all = 1
+autocmd FileType python let python_version_2 = 1
+autocmd FileType python set nowrap
+autocmd FileType python set tabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set softtabstop=4
+autocmd FileType python set expandtab                " tab 을 space 로 자동 변환
+autocmd FileType python set makeprg=python
+autocmd FileType python set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+autocmd BufNewFile *.py 0r ~/.vim/syntax/skeleton_python | let IndentStyle="python"
+autocmd BufWritePre *.py normal m`:%s/\s\+$//e
+"autocmd BufWritePost *.py call Flake8()
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o   " 자동주석 기능 OFF
+
+
+" Parse content between the ---s as comment. Make YML files look better
+autocmd FileType markdown syntax match Comment /\%^---\_.\{-}---$/
+autocmd FileType markdown setlocal textwidth=100
+autocmd FileType markdown setlocal showbreak=]\
+" Syntax highlighting for fenced code block
+"let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'vim=vim', 'bash=sh']
+
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'rkulla/pydiction'
+Plugin 'elzr/vim-json'
+Plugin 'will133/vim-dirdiff'
+Plugin 'DoxygenToolkit.vim'
+Plugin 'blueyed/vim-diminactive'
+
+let g:diminactive_enable_focus = 1
+
+
+set hidden
+
+let g:flake8_show_in_file = 1
+let g:flake8_show_in_gutter = 1
+" 설정
+"파일  : ~/.config/flake8
+"[flake8]
+"max-line-length = 120
+
+""""""""""""""""""" pydic
+let g:pydiction_location = '/Users/jklee/.vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height = 3
+
+
+
+
+
+""""""""""""""""""" Dirdiff
+let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp,*.o"
+let g:DirDiffIgnore = "Id:"
+" ignore white space in diff
+let g:DirDiffAddArgs = "-w"
+let g:DirDiffEnableMappings = 1
+
+
+""""""""""""""""""" doxygentoolkit.vim
+let g:DoxygenToolkit_briefTag_pre="@Brief "
+let g:DoxygenToolkit_paramTag_pre="@Param "
+let g:DoxygenToolkit_returnTag="@Returns   "
+"let g:DoxygenToolkit_blockHeader="-------------------------------"
+"let g:DoxygenToolkit_blockFooter="---------------------------------"
+let g:DoxygenToolkit_authorName="Lee Jae Kuk"
+let g:DoxygenToolkit_licenseTag="My own license"
+
+inoremap <Leader>g <ESC>^i* [ ] <ESC> $
+nnoremap  <Leader>g <ESC>^i* [ ] <ESC> $
+vnoremap <Leader>g <ESC>^i* [ ] <ESC> $
+
+"======================================================================
+" VIM TIP
+"======================================================================
+" - 소스코드를 HTML로 변환 명령
+" :TOhtml
+" - Tab 을 Speace 로 변환
+" :retab
+
+" autocmd BufWrite  *.py :!chmod +x % <CR>
+
+"터미널에서 실행한 경우
+" macvim이 끝나면 다시 터미널로 포커스 이동
+"autocmd VimLeave * :!open -a iterm
+

@@ -1,0 +1,639 @@
+"==============================================================
+" VIMRC								  by JKLEE
+"                                             2017-01-11
+"==============================================================
+syntax on                               " 적절히 Syntax에 따라 하일라이팅 해주기
+set all&								" 모든 옵션을 원래대로 복원
+
+"======================================================================
+" 언어 관련  설정
+"======================================================================
+if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+	set encoding=utf-8
+endif
+scripte utf-8
+set fileencodings=utf-8,euc-kr,cp949
+
+
+"======================================================================
+set nocompatible
+set ru									" 커서의 위치를 항상 보이게 함.
+set wrap								" 자동 줄바꿈 안함
+set sc									" 완성중인 명령을 표시
+set history=100 						" 명령어 저장 갯수
+set backspace=indent,eol,start			" backspace로 라인끝과 처음 자동들여쓰기한 부분을 지날수 있음
+set laststatus=2
+set statusline=%h%F%m%r%=[%l:%c(%p%%)]  " 상태표시줄 포맷팅
+"set visualbell							" Alert 음을 화면 깜박임으로 바꿔보여주기
+set wmnu								" Tab 자동 완성시 가능한 목록을 보여줌
+set nobackup							" 백업 파일을 만들지 않는다.
+set ruler								" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
+set autowrite					 		" :next 나 :make 같은 명령를 입력하면 자동으로 저장
+"set title								" 타이틀바에 현재 편집중인 파일을 표시
+set magic								" 모든 정규식 문자를 사용할 수 있게 함
+set ffs=unix,dos,mac					" unix dos mac 줄 변경자 모두 다 읽을 수 있도록 합니다.
+set lz									" 매크로 실행중에 화면을 다시 그리지 않음
+set foldmethod=marker
+set clipboard+=unnamed					" use the clipboards of vim and win
+set go+=a								" Visual selection automatically copied to the clipboard
+set sel=inclusive						" 비주얼 모드에서의 동작 설정
+set cursorline
+set diffopt+=iwhite  					" Ignore changes in amount of white space.
+set cc=200    							" 200 번째 글자 위치에 선 넣기
+set splitbelow                          " 새로운 창 아래 생성
+set novisualbell        				" 화면 깜빡임 금지
+set noerrorbells visualbell t_vb=       " 소리 안나도록
+autocmd GUIEnter * set visualbell t_vb=
+
+"======================================================================
+" Path / Tag
+"======================================================================
+set path=./,~/,/usr/include,../../include,../include " header 파일 찾을 디렉토리
+set tags=./tags,../../tags,tags,../tags,../../libsrc/tags
+
+
+" 파일의 위치 저장. 다음에 파일 열때 닫았던 위치에 열림
+au BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\ exe "norm g`\"" |
+\ endif
+
+"======================================================================
+" COLOR
+"======================================================================
+set t_Co=256
+"set background=dark
+let g:rehash256 = 1
+"colorscheme molokai
+colorscheme deus
+
+"======================================================================
+" 들여쓰기 설정
+"======================================================================
+set tabstop=4							" 탭문자는 4컬럼 크기로 보여주기
+set shiftwidth=4						" 문단이나 라인을 쉬프트할 때 4컬럼씩 하기
+set cindent							" C 프로그래밍을 할때 자동으로 들여쓰기를 한다.
+set autoindent							" 자동 들여쓰기
+set smartindent							" 좀더 똑똑한 들여쓰기를 위한 옵션이다.
+"set showmatch							" 매치되는 괄호 보여주기
+set autochdir
+
+"======================================================================
+" 찾기 설정
+"======================================================================
+set hlsearch							" / ? 명령 등으로 찾은 문자열을 하일라이트 해준다.
+set incsearch
+set scs									" 똑똑한 대소문자 구별 기능 사용
+"set nowrapscan							" 검색할 때 문서의 끝에서 다시 처음으로 돌아가지 않는다.
+
+let mapleader = ","
+
+"======================================================================
+" 장비별 설정
+"======================================================================
+
+
+
+let os = substitute(system('uname'), "\n", "", "")
+if os == "Linux"
+	" Linux OS
+	let Grep_Path = '/bin/grep'
+	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.ex,*.o
+	let startPwd = substitute(system('pwd'), "\n", "", "")
+	nnoremap <Leader>x :e ~/.jklee/env/vim/vimrc<CR><CR>
+
+elseif has("gui_running")
+	if has("win32")
+		"======================================================================
+		" Windows Gvim Setting
+		"======================================================================
+		set encoding=utf-8
+		set guifont=Consolas:h13:cANSI
+		set guifontwide=Dotumche:h12:cDEFAULT
+
+		" 마우스 우클릭 붙여넣기
+		set mousemodel=extend
+		map <RightMouse> <MiddleMouse>
+
+		"let Grep_Path = '/bin/grep'
+		"let Grep_Path = ' C:\Program Files\Git\usr\bin\grep.exe'
+		"let Grep_Path = ' C:\Program/ Files\Git\usr\bin\grep.exe'
+		cd C:\Users\jklee\Downloads
+		imap <C-S> <ESC>:w<CR>
+"		imap <C-O> <ESC>:tabnew<CR>:browse e<CR>
+		map <C-S> :w<CR>
+"		map <C-O> :tabnew<CR>:browse e<CR>
+
+		" For Full Screen
+    	set lines=999 columns=999
+
+	      " ===== g_vim 메뉴 간소
+		set guioptions-=m            " 메인 메뉴
+		set guioptions-=T
+		set guioptions-=l
+		set guioptions-=L           " Lift-hand scroll bar
+		set guioptions-=r       	" right-hand scroll bar
+		set guioptions-=R
+		set guioptions-=b
+		set guioptions+=c
+
+
+
+		nnoremap <C-Z> u<CR>
+		inoremap <C-Z> <ESC>u<CR>
+
+		nnoremap <C-S-V> p<CR>
+		inoremap <C-S-V> <ESC>p<CR>$A
+		" 2017/02/24 JKLEE : gvim 은 Ctrl+q 가 Virtual Block 설정인데 Ctrl+v 로 바꿀라고 하다가
+		" Ctal+v 를 붙여넣기로 쓰고 Ctrl+q 를 새로 익히기로 결정
+		"	nnoremap <C-v> <C-Q>
+		"	inoremap <C-v> <C-Q>
+
+		"set grepprg=grep\ -nH
+		set grepprg=grep\ -snH
+
+"		set background=dark
+"		colorscheme molokai
+"		colorscheme office-light
+"colorscheme office-dark
+		nnoremap <silent> <F5> :update<Bar>silent !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "file://%:p"<CR>
+
+		nnoremap <Leader>x :e ~/.jklee/env/vim/vimrc<CR><CR>
+
+		" 한글 깨지는것을 utf-8 로 다시 인코딩해서 읽기
+		map <Leader>e :e ++enc=utf-8 <CR>
+		set wildignore+=*\\tmp\\*,*.swp,*.zip,*.ex
+		set fileencodings=utf-8
+
+	else
+		"======================================================================
+		" Mac MacVim Setting
+		"======================================================================
+		let startPwd = substitute(system('pwd'), "\n", "", "")
+		set guifont=Monaco:h12
+
+		"Remove both scrollbars
+		set guioptions=
+
+		set lines=30
+		set columns=100
+
+		let Grep_Path = '/usr/bin/grep'
+	    nnoremap <Leader>x :e ~/.jklee/env/vim/vimrc<CR><CR>
+		cd ~\Downloads
+	endif
+elseif has("win32unix")
+	"======================================================================
+	" Cygwin Setting
+	"======================================================================
+	cd /home/jklee/Dropbox/DOCUMENT/NOTE
+	let Grep_Path = '/bin/grep'
+
+else
+	"======================================================================
+	"  Mac OS
+	"======================================================================
+	"cd /Users/JKLEE/Documents/nvALT
+	let Grep_Path = '/usr/bin/grep'
+	let startPwd = substitute(system('pwd'), "\n", "", "")
+	nnoremap <Leader>x :e ~/.jklee/env/vim/vimrc<CR><CR>
+endif
+
+
+"======================================================================
+" 단축키 설정 Part1 : F1 ~ F12 : 정리중
+"======================================================================
+map <F10> :make clean <CR><CR>
+nnoremap <F9> :Grep<CR>
+
+
+"======================================================================
+" 단축키 설정 Part2 : leader Key 를 이용한 단축키
+"======================================================================
+fu! ToggleNu()
+	let &nu = 1 - &nu
+endf
+
+fu! TogglePaste()
+	let &paste = 1 - &paste
+endf
+
+"map <Leader>N :call ToggleNu()<CR>
+map <Leader>p :call TogglePaste()<CR>
+map <Leader>CO :copen<CR>
+map <Leader>CN :cnext <CR>
+map <Leader>CC :cclose <CR>
+
+map <Leader>LO :lopen<CR>
+map <Leader>LN :lnext <CR>
+map <Leader>LC :lclose <CR>
+
+map <Leader>1 :NERDTree<CR> :OpenBookmark elcom<CR>
+map <Leader>2 :NERDTree<CR> :OpenBookmark isRead<CR>
+map <Leader>3 :NERDTree<CR> :OpenBookmark memo<CR>
+map <Leader>4 :NERDTree<CR> :OpenBookmark Blog<CR>
+
+
+inoremap <Leader>a #  <ESC>"=strftime("%Y-%m-%d")<CR>PA <CR>
+nnoremap <Leader>a A#  <ESC>"=strftime("%Y-%m-%d")<CR>PA <CR>
+inoremap <Leader>s ##  <ESC>"=strftime("%H:%M")<CR>PA <CR>
+nnoremap <Leader>s A##  <ESC>"=strftime("%H:%M")<CR>PA <CR>
+nnoremap <Leader>d A ~  <ESC>"=strftime("%H:%M")<CR>PA
+inoremap <Leader>d ~  <ESC>"=strftime("%H:%M")<CR>PA
+
+
+nnoremap <Leader>q :q<CR>
+inoremap <Leader>q <ESC>:q<CR>
+nnoremap <Leader>qq :q!<CR>
+inoremap <Leader>qq <ESC>:q!<CR>
+
+nnoremap <Leader>ㅂ :q<CR> <CR>
+inoremap <Leader>ㅂ <ESC>:q<CR>
+nnoremap <Leader>ㅂㅂ :q!<CR>
+inoremap <Leader>ㅂㅂ <ESC>:q!<CR>
+
+
+
+nnoremap <silent> <F5> :update<Bar>silent !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "file://%:p"<CR>
+map <Leader>r :! ./run.sh<CR>
+
+map <Leader>t :!rm -rf tags \| ctags -a *.cpp \| ctags -a *.sc \| ctags -a *.pc \| ctags -a *.hpp
+"map <Leader>g :grep <cword> *.cpp *.hpp *.sc *.pc <CR><CR> :copen <CR>
+"map <Leader>g :grep <cword> * <CR><CR> :copen <CR>
+
+
+map <Leader>g :execute " grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR><CR>
+map <F4> :execute " grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR><CR>
+
+if os == "MSYS_NT-6.1"
+autocmd FileType python map <Leader>t :!ctags.exe -a --python-kinds=-iv --exclude=build --exclude=dist *.py
+else
+autocmd FileType python map <Leader>t :!ctags -a --python-kinds=-iv --exclude=build --exclude=dist *.py
+endif
+
+autocmd FileType python nnoremap <buffer> <Leader>i :exec '!clear; ipython' <cr>
+"autocmd FileType python nnoremap <buffer> <Leader>R :exec '!clear; python main.py' <cr>
+autocmd FileType python nnoremap <buffer> <Leader>R :exec '!python main.py' <cr>
+autocmd FileType python nnoremap <buffer> <Leader>r :exec '!python' shellescape(@%, 1)<cr>
+autocmd FileType python map <Leader>g :grep <cword> *.py <CR><CR> :copen <CR>
+"autocmd FileType python map <Leader>r :!python % <CR>
+"======================================================================
+" 단축키 설정 Part3 : 축약
+"======================================================================
+iab test. // JKLEE_TEST <c-r>=strftime("%Y/%m/%d %H:%M")<CR> :
+iab jklee. // <c-r>=strftime("%Y/%m/%d" )<CR> JKLEE :
+iab todo. // JKLEE_TODO <c-r>=strftime("%Y/%m/%d %H:%M")<CR> :
+iab debug. /* JKLEE_DEBUG <c-r>=strftime("%Y/%m/%d %H:%M")<CR> */  <CR>
+iab pppp fprintf(stderr,"JKLEE_DEBUG FILE[%s] FUNC[%s] LINE[%d] \n",__FILE__,__func__,__LINE__);
+iab ppp fprintf(stderr,"
+iab re: RESULT :
+iab tag: Tag :
+iab mail. taein2301@gmail.com
+
+iab del. #if 0 // JKLEE_DELETE <c-r>=strftime("%Y/%m/%d %H:%M")<CR>
+iab end. #endif
+
+iab img. ![img](/Users/jklee/Dropbox/wiki/img/
+
+iab jklog. g_pclsFileLog->Write(LOG_CRITICAL, "JKLEE_LOG [%s][%s]",__FILE__,__LINE__);
+iab logc. g_pclsFileLog->Write(LOG_CRITICAL, "
+iab logd. g_pclsFileLog->Write(LOG_INFO, "
+"======================================================================
+" 단축키 설정 Part4 :
+"======================================================================
+" 영역이 지정된 상태에서 Tab 과 Shift-Tab 으로 들여쓰기/내어쓰기를 할 수
+" 있도록 함.
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+" 커서를 다음/이전 “row”로
+"noremap j gj
+"noremap k gk
+
+">>>select All
+nnoremap <C-A> ggVG
+inoremap <C-A> <esc>ggVG
+vnoremap <C-A> <esc>ggVG
+"
+" Tab navigation
+nnoremap <C-N>   :tabnew<CR>
+nnoremap <C-j>   :tabNext<CR>
+nnoremap <C-k>   :tabnext<CR>
+nnoremap <C-l>   :tabclose<CR>
+
+inoremap <C-N>   <ESC>:tabnew<CR>
+inoremap <C-j>   <ESC>:tabNext<CR>
+inoremap <C-k>   <ESC>:tabnext<CR>
+inoremap <C-l>   <ESC>:tabclose<CR>
+
+
+" MacVim Only
+" <D-  : command key
+nnoremap <D-1>   1gt<CR>
+nnoremap <D-2>   2gt<CR>
+nnoremap <D-3>   3gt<CR>
+nnoremap <D-4>   4gt<CR>
+nnoremap <D-5>   5gt<CR>
+nnoremap <D-6>   6gt<CR>
+nnoremap <D-7>   7gt<CR>
+nnoremap <D-8>   8gt<CR>
+nnoremap <D-9>   9gt<CR>
+
+"Buffer navigation
+"nnoremap <C-S-N>   :enew<CR>
+"nnoremap <C-S-j>   :bprevious!<CR>
+"nnoremap <C-S-k>   :bnext!<CR>
+"nnoremap <C-S-l>   :bp <BAR> bd #<CR>
+
+"inoremap <C-S-N>   :enew<CR>
+"inoremap <C-S-j>   :bprevious!<CR>
+"inoremap <C-S-k>   :bnext!<CR>
+"inoremap <C-S-l>   :bp <BAR> bd #<CR>
+
+
+
+autocmd BufRead,BufNewFile *.hpp cmap A<CR> e %<.cpp<CR>
+autocmd BufRead,BufNewFile *.cpp cmap A<CR> e %<.hpp<CR>
+autocmd BufRead,BufNewFile *.sc cmap A<CR> e %<.hpp<CR>
+autocmd BufRead,BufNewFile *.pc cmap A<CR> e %<.hpp<CR>
+
+cmap AL<CR> e %<.sc<CR>
+cmap OR<CR> e %<.pc<CR>
+
+"======================================================================
+" 파일별 개별 설정
+"======================================================================
+" 저장시에 무조건 UTF-8 로 변환
+autocmd BufWrite  * :set fileencodings=uft-8
+" 저장시에 무조건 unix 형식으로  unix : <LF> / dos : <CR><LF>
+autocmd BufWrite  * :set fileformat=unix
+
+" 파일 여러게 OPEN 시에 TAB 으로 열기
+" autocmd VimEnter * tab all
+
+" sh Script
+autocmd FileType sh map <F2> : !chmod +x %
+autocmd FileType sh map <F3> : !./%
+
+" C language
+autocmd BufRead,BufNewFile *.c set noexpandtab
+autocmd BufRead,BufNewFile *.h set noexpandtab
+autocmd BufRead,BufNewFile Makefile* set noexpandtab
+
+"Python
+autocmd FileType python nnoremap K :<C-u>execute "!python -m pydoc " . expand("<cword>")<CR><CR><CR>
+autocmd FileType python let python_highlight_all = 1
+autocmd FileType python let python_version_2 = 1
+autocmd FileType python set nowrap
+autocmd FileType python set tabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set softtabstop=4
+autocmd FileType python set expandtab                " tab 을 space 로 자동 변환
+autocmd FileType python set makeprg=python
+autocmd FileType python set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+autocmd BufNewFile *.py 0r ~/.vim/syntax/skeleton_python | let IndentStyle="python"
+autocmd BufWritePre *.py normal m`:%s/\s\+$//e
+"autocmd BufWritePost *.py call Flake8()
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o   " 자동주석 기능 OFF
+
+
+autocmd BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+" Parse content between the ---s as comment. Make YML files look better
+autocmd FileType markdown syntax match Comment /\%^---\_.\{-}---$/
+autocmd FileType markdown setlocal textwidth=100
+autocmd FileType markdown setlocal showbreak=]\
+" Syntax highlighting for fenced code block
+let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'vim=vim', 'bash=sh']
+
+"======================================================================
+" JSON Setting
+"=====================================================================
+
+
+"======================================================================
+" sc/pc 파일 cpp 형식으로 읽기
+"=====================================================================
+autocmd BufNewFile,BufRead *.sc set ft=cpp
+autocmd BufRead,BufNewFile *.pc set ft=cpp
+
+"======================================================================
+" Plug in Setting
+"=====================================================================
+
+"======================================================================
+"  VUNDLE 설정
+"======================================================================
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release
+    else
+      !cargo build --release --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+
+set nocompatible
+
+filetype off
+
+runtime! debian.vim
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-markdown'
+Plugin 'majutsushi/tagbar'
+Plugin 'a.vim'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vimwiki/vimwiki'
+Plugin 'rkulla/pydiction'
+Plugin 'itspriddle/vim-marked'
+Plugin 'elzr/vim-json'
+Plugin 'bad-whitespace'   " 불필요한 공백 빨강색으로 표시
+call vundle#end()
+
+filetype plugin indent on
+
+let Grep_OpenQuickfixWindow = 1
+let Grep_Default_Filelist = '*.c *.h *.cpp *.sc *.hpp *.cc *.cs'
+let Grep_Default_Options = '-rn'
+let Grep_Skip_Dirs = '.svn'
+let Grep_Skip_Files = 'tags'
+let Grep_Skip_Files = '*.o'
+
+
+""""""""""""""""""" NerdTree 설정
+let NERDTreeWinPos = "left"
+" NerdTree 창 만 남았을때 vim 닫기
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+let NERDTreeIgnore=['\.exe$','\.WMV$','\.doc$','\.pptx$','\.ico$','\.PNG$','\.jpg$','\.pdf$','\.pyc$', '\~$']
+
+" automatically close NERDTree after a file has been opened
+" let NERDTreeQuitOnOpen=1::
+
+
+let NERDTreeChDirMode = 2
+let NERDTreeShowBookmarks=1
+
+" Open NERDTree in the directory of the current file (or /home if no file is open)
+nnoremap <silent> <Leader>e :call NERDTreeToggleInCurDir()<cr>
+function! NERDTreeToggleInCurDir()
+	" If NERDTree is open in the current buffer
+	if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+		exe ":NERDTreeClose"
+	else
+		if (expand("%:t") != '')
+			exe ":NERDTreeFind"
+		else
+			exe ":NERDTreeToggle"
+		endif
+	endif
+endfunction
+
+if os == "MSYS_NT-6.1"
+	" vim 만 입력 했을때 자동으로 NerdTree 뜨게 하기
+	autocmd StdinReadPre * let s:std_in=1
+	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+endif
+
+" vim 시작시에 무조건 NerdTree 뜨게 하기
+"autocmd vimenter * NERDTree
+
+""""""""""""""""""" markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+
+let g:virtualenv_auto_activate=1
+let g:virtualenv_directory='/Users/jklee/Source/isRead'
+let g:virtualenv_stl_format = '[%n]'
+""""""""""""""""""" airline
+set hidden
+let g:airline_theme='distinguished'
+"let g:airline#extensions#tabline#enabled = 1              " vim-airline 버퍼 목록 켜기
+"let g:airline#extensions#tabline#fnamemod = ':t'          " vim-airline 버퍼 목록 파일명만 출력
+"let g:airline#extensions#tabline#buffer_nr_show = 1       " buffer number를 보여준다
+"let g:airline#extensions#tabline#buffer_nr_format = '%s:' " buffer number format
+let g:airline_section_z ='%l:%c(%p%%)'
+"let g:airline_section_z ='%l:%c(%p%%)'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+
+let g:flake8_show_in_file = 1
+let g:flake8_show_in_gutter = 1
+" 설정
+"파일  : ~/.config/flake8
+"[flake8]
+"max-line-length = 120
+
+""""""""""""""""""" pydic
+let g:pydiction_location = '/Users/jklee/.vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height = 3
+
+map <Leader>f :VWS <cword> <CR><CR> :lopen <CR>
+map <Leader>F :VWS
+
+""""""""""""""""""" Tagbar
+nnoremap <silent> <F5> :TagbarToggle<CR>
+let g:tagbar_width = 30
+let g:tagbar_autofocus = 1
+
+""""""""""""""""""" NerdCommenter
+let g:NERDSpaceDelims = 1      " /* int foo=2; */
+
+
+""""""""""""""""""" Mac Marked2 open
+nnoremap <Leader>m :MarkedOpen <CR>
+inoremap <Leader>m <ESC>:MarkedOpen <CR>
+
+""""""""""""""""""" vimwiki Image insert
+inoremap <silent> <F7>  ![img](/Users/jklee/Dropbox/wiki/img/
+nnoremap <silent> <F7>  i![img](/Users/jklee/Dropbox/wiki/img/
+
+
+
+
+""""""""""""""""""" vim-buffergator
+let g:buffergator_viewport_split_policy="T"
+let g:buffergator_hsplit_size=10
+nmap  <Leader>l :BuffergatorOpen
+" ===========================================================
+" 기타 안쓰는 설정
+" ===========================================================
+"set keywordprg=ydic				" K를 눌렀을 때 실행할 명령어 "
+
+"======================================================================
+" VIM TIP
+"======================================================================
+" - 소스코드를 HTML로 변환 명령
+" :TOhtml
+" - Tab 을 Speace 로 변환
+" :retab
+"======================================================================
+" 자주 틀리는 단어 조정
+"======================================================================
+cab ㅈ w
+cab ㅂ q
+
+if os == "MSYS_NT-6.1"
+	let g:vimwiki_list = [{'path': 'c:\JKLEE\project\wiki',
+       	                \ 'syntax': 'markdown', 'ext': '.md'}]
+else
+    " autocmd BufWrite  *.py :!chmod +x % <CR>
+	let g:vimwiki_list = [{'path': '/Users/jklee/Dropbox/wiki',
+       	                \ 'syntax': 'markdown', 'ext': '.md'}]
+	if startPwd == "/Users/jklee"
+	   "GUI ICON 으로 실행한 경우
+		" vim 만 입력 했을때 자동으로 NerdTree 뜨게 하기
+		autocmd StdinReadPre * let s:std_in=1
+		autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+	else
+		autocmd StdinReadPre * let s:std_in=1
+		autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+	   "터미널에서 실행한 경우
+	   " macvim이 끝나면 다시 터미널로 포커스 이동
+		"autocmd VimLeave * :!open -a iterm
+	endif
+endif
+
+inoremap <Leader>g <ESC>^i* [ ] <ESC> $
+nnoremap  <Leader>g <ESC>^i* [ ] <ESC> $
+vnoremap <Leader>g <ESC>^i* [ ] <ESC> $
+
+map <Leader>b :make clean ; make <CR>:copen<CR><CR>
+
+" ===========================================================
+" vimviki 여러게 설정  
+" ===========================================================
+let note_wiki = {}
+let note_wiki.path = 'c:\JKLEE\project\wiki'
+let note_wiki.syntax =  'markdown'
+let note_wiki.ext =  '.md'
+
+let job_wiki = {}
+let job_wiki.path = 'c:\JKLEE\project\job_wiki'
+let job_wiki.syntax =  'markdown'
+let job_wiki.ext =  '.md'
+
+let daily_wiki = {}
+let daily_wiki.path = 'c:\JKLEE\project\daily_wiki'
+let daily_wiki.syntax =  'markdown'
+let daily_wiki.ext =  '.md'
+
+let g:vimwiki_list = [daily_wiki,job_wiki,note_wiki]
+
+"======================================================================
+" End of File
+"======================================================================

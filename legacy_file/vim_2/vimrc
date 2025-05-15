@@ -1,0 +1,126 @@
+"==============================================================
+" VIMRC								          by JKLEE
+"                                             2018-09-21
+"==============================================================
+
+"======================================================================
+" 기본 설정
+syntax on                               " 적절히 Syntax에 따라 하일라이팅 해주기
+set all&								" 모든 옵션을 원래대로 복원
+set autowrite					 		" :next 나 :make 같은 명령를 입력하면 자동으로 저장
+set splitbelow                          " 새로운 창 아래 생성
+set nobackup							" 백업 파일을 만들지 않는다.
+set noswapfile
+set nowb
+set cursorline                          " 현재 커서 위치를 라인으로 표시
+set ruler								" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
+set laststatus=2
+set noexpandtab
+set title								" 타이틀바에 현재 편집중인 파일을 표시
+set ffs=unix,dos,mac					" unix dos mac 줄 변경자 모두 다 읽을 수 있도록 합니다.
+set backspace=indent,eol,start			" backspace로 라인끝과 처음 자동들여쓰기한 부분을 지날수 있음
+set clipboard+=unnamed					" use the clipboards of vim and win
+if has('unnamedplus')
+  set clipboard+=unnamedplus  " better support system clipboard
+endif
+set go+=a								" Visual selection automatically copied to the clipboard
+set sel=inclusive						" 비주얼 모드에서의 동작 설정
+set showcmd
+set cc=200    							" 200 번째 글자 위치에 선 넣기
+set noimd   							" ESC 로 모드 변환시 한글-> 영문으로 변환
+set iminsert=1                " starts insert mode with english keymap
+set imsearch=-1                " starts search with english keymap
+
+set autochdir                           " vim pwd 를 현재 파일 위치로 자동 이동
+
+let mapleader = ","
+"======================================================================
+
+"======================================================================
+" 언어 관련  설정
+if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+	set encoding=utf-8
+endif
+
+scripte utf-8
+set fileencodings=utf-8,euc-kr,cp949
+"======================================================================
+
+
+"======================================================================
+" COLOR
+set t_Co=256
+set background=dark
+let g:rehash256 = 1
+"colorscheme molokai
+"colorscheme deus
+colorscheme janah
+
+" highlight ExtraWhitespace guibg=DarkGray ctermbg=DarkGray
+" match ExtraWhitespace /\s\+$/
+"======================================================================
+
+"======================================================================
+" 들여쓰기 설정
+set tabstop=4							" 탭문자는 4컬럼 크기로 보여주기
+set shiftwidth=4						" 문단이나 라인을 쉬프트할 때 4컬럼씩 하기
+set shiftwidth=4						" 문단이나 라인을 쉬프트할 때 4컬럼씩 하기
+set cindent		     					" C 프로그래밍을 할때 자동으로 들여쓰기를 한다.
+set autoindent							" 자동 들여쓰기
+set smartindent							" 좀더 똑똑한 들여쓰기를 위한 옵션이다.
+"======================================================================
+
+"======================================================================
+" 찾기 설정
+set hlsearch							" / ? 명령 등으로 찾은 문자열을 하일라이트 해준다.
+set incsearch 							" 점진적으로 찾기
+set ignorecase                          " 대소문자 무시
+"======================================================================
+
+"======================================================================
+" Path / Tag
+set path=./,~/,/usr/include,../../include,../include " header 파일 찾을 디렉토리
+set tags=./tags,../../tags,tags,../tags,../../libsrc/tags
+"======================================================================
+
+"======================================================================
+" 다음 파일 열때 닫았던 위치에 열림
+autocmd BufReadPost *
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\ exe "norm g`\"" |
+			\ endif
+"======================================================================
+
+"======================================================================
+" Extern vimrc
+"======================================================================
+source ~/.vim/vimrc_plugin.vim
+source ~/.vim/vimrc_shortcut.vim
+source ~/.vim/vimrc_filetype.vim
+
+if has("gui_macvim")
+	source ~/.vim/vimrc_macvim.vim       " MacVim GUI
+elseif has("win32")
+	" gvim
+	source ~/.vim/vimrc_gvim.vim       	 " gvim GUI
+elseif has("win32unix")
+	" Cygwin Setting
+endif
+
+
+
+
+"======================================================================
+" 자주 틀리는 단어 조정
+"======================================================================
+cab ㅈ w
+cab ㅂ q
+
+" ===========================================================
+" 기타 안쓰는 설정
+" ===========================================================
+"set keywordprg=ydic				" K를 눌렀을 때 실행할 명령어 "
+
+"======================================================================
+" End of File
+"======================================================================
